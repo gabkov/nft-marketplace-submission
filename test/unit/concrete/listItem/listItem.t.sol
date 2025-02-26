@@ -53,4 +53,9 @@ contract ListItemTest is NftMarketplaceTest {
         assertEq(seller, alice);
         assertEq(price, 1 ether);
     }
+
+    function testGas_listItem() external whenCallerIsTheOwner whenNftIsApprovedForListing {
+        nftm.listItem(mockNft, token1, 1 ether);
+        vm.snapshotGasLastCall("listItem");
+    }
 }
