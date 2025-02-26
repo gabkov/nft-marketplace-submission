@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-interface INFTMarketplace {
+interface INftMarketPlace {
     // Errors
     error NotTokenOwner();
     error TokenNotApprovedForListing();
