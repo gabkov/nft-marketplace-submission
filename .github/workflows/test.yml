@@ -28,7 +28,7 @@ jobs:
         run: pwd
 
       - name: List repository files
-        run: ls -R
+        run: ls
 
       - name: "Build the contracts and print their size"
         run: |
