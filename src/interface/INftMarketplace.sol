@@ -16,7 +16,7 @@ interface INftMarketPlace {
     event ItemListed(address indexed tokenAddress, uint256 indexed tokenId, address indexed seller, uint256 price);
     event ListingCancelled(address indexed tokenAddress, uint256 indexed tokenId);
     event ItemBought(address indexed tokenAddress, uint256 indexed tokenId, address indexed buyer, uint256 price);
-    event ListingUpdated(address indexed tokenAddress, uint256 indexed tokenId, uint256 newPrice);
+    event ListingUpdated(address indexed tokenAddress, uint256 indexed tokenId, uint256 oldPrice, uint256 newPrice);
     event ProceedsWithdrawn(address indexed seller, uint256 amount);
 
     // Structs

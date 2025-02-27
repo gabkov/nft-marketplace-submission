@@ -85,9 +85,12 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         isListed(tokenAddress, tokenId)
     {
         if (newPrice <= 0) revert ZeroPrice();
+
+        uint256 oldPrice = _listings[tokenAddress][tokenId].price;
+
         _listings[tokenAddress][tokenId].price = newPrice;
 
-        emit ListingUpdated(tokenAddress, tokenId, newPrice);
+        emit ListingUpdated(tokenAddress, tokenId, oldPrice, newPrice);
     }
 
     /// @inheritdoc INftMarketPlace
