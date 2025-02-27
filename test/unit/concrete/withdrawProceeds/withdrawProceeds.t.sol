@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-import "test/NftMarketplace.t.sol";
+import "../../../NftMarketplace.t.sol";
 
 contract WithdrawProceedsTest is NftMarketplaceTest {
     function setUp() public override {
