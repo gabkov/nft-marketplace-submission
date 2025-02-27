@@ -8,7 +8,7 @@ interface INftMarketPlace {
     error ListingAlreadyExists(address tokenAddress, uint256 tokenId);
     error ListingNotFound(address tokenAddress, uint256 tokenId);
     error InsufficientPayment(uint256 required, uint256 provided);
-    error TransferFailed();
+    error WithdrawFailed();
     error ZeroPrice();
     error NoProceeds(address seller);
 

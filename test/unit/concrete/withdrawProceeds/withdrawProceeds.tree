@@ -1,0 +1,10 @@
+WithdrawProceedsTest
+├── When proceeds balance is 0
+│   └── It should revert with {NoProceeds}
+└── When proceeds balance is greater than 0
+    ├── When the transfer to the caller fails
+    │   └── It should revert with {WithdrawFailed}
+    └── When the transfer is successful
+        ├── It should delete proceeds for the caller
+        ├── It should send the correct amount to the caller
+        └── It should emit {ProceedsWithdrawn} event

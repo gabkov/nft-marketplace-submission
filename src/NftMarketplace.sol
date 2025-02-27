@@ -102,9 +102,7 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         proceeds[msg.sender] = 0;
 
         (bool success,) = payable(msg.sender).call{value: amount}("");
-        if (!success) {
-            revert TransferFailed();
-        }
+        if (!success) revert WithdrawFailed();
 
         emit ProceedsWithdrawn(msg.sender, amount);
     }
