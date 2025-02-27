@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: Testing Tree Structure
+    name: testing tree structure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -1,18 +1,19 @@
-name: Main
+name: CI
 
 on:
   push:
-    branches: 
-      - main
   pull_request:
   workflow_dispatch:
 
+env:
+  FOUNDRY_PROFILE: ci
+
 jobs:
-  test:
+  check:
     strategy:
       fail-fast: true
 
-    name: run tests
+    name: Foundry project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,19 +22,22 @@ jobs:
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: v1.0.0
 
-      - name: "Build the contracts and print their size"
+      - name: Show Forge version
         run: |
           forge --version
+
+      - name: Run Forge fmt
+        run: |
+          forge fmt --check
+        id: fmt
+
+      - name: Run Forge build
+        run: |
           forge build --sizes
+        id: build
 
       - name: Run Forge tests
         run: |
           forge test -vvv
         id: test
-      
-      - name: slither-static-analysis
-        continue-on-error: true
-        uses: luisfontes19/slither-static-analysis-action@v0.3.4

@@ -1,4 +1,4 @@
-name: gas
+name: Gas
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: gas check
+    name: run gas check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
