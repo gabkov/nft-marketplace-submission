@@ -1,0 +1,9 @@
+CancelListingTest
+├── When caller is not owner
+│   └── It should revert with {NotTokenOwner}
+└── When caller is the owner
+    ├── When item is not listed
+    │   └── It should revert with {ListingNotFound}
+    └── When item is listed
+        ├── It should delete the listing
+        └── It should emit {ListingCancelled} event
