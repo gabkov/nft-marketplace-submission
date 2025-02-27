@@ -33,6 +33,7 @@ jobs:
       - name: "Build the contracts and print their size"
         run: |
           forge --version
+          forge clean
           forge build --sizes
 
       - name: Run Forge tests
