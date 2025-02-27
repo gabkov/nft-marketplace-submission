@@ -33,8 +33,8 @@ abstract contract NftMarketplaceTest is Test {
         token2 = MockNft(mockNft).safeMint(alice);
     }
 
-    function getSellerAndPrice(address nft, uint256 tokenId) public returns (address, uint256) {
-        INftMarketPlace.Listing memory listing = nftm.listings(mockNft, token1);
+    function getSellerAndPrice(address nft, uint256 tokenId) public view returns (address, uint256) {
+        INftMarketPlace.Listing memory listing = nftm.listings(nft, tokenId);
         return (listing.seller, listing.price);
     }
 }
