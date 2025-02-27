@@ -2,8 +2,8 @@
 pragma solidity ^0.8.28;
 
 import "forge-std/Test.sol";
-import {NftMarketPlace, INftMarketPlace} from "../src/NftMarketplace.sol";
-import {MockNft} from "./mocks/MockNft.sol";
+import {NftMarketPlace, INftMarketPlace} from "src/NftMarketplace.sol";
+import {MockNft} from "test/mocks/MockNft.sol";
 
 abstract contract NftMarketplaceTest is Test {
     INftMarketPlace public nftm;
