@@ -21,6 +21,9 @@ abstract contract NftMarketplaceTest is Test {
         alice = payable(makeAddr({name: "alice"}));
         bob = payable(makeAddr({name: "bob"}));
 
+        vm.deal(alice, 10 ether);
+        vm.deal(bob, 10 ether);
+
         nftm = new NftMarketPlace();
         mockNft = address(new MockNft(owner));
 

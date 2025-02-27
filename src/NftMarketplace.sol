@@ -71,7 +71,7 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
 
         delete _listings[tokenAddress][tokenId];
 
-        IERC721(tokenAddress).safeTransferFrom(address(this), msg.sender, tokenId);
+        IERC721(tokenAddress).safeTransferFrom(listing.seller, msg.sender, tokenId);
 
         proceeds[listing.seller] += msg.value;
 

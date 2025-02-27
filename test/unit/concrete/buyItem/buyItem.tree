@@ -1,0 +1,11 @@
+BuyItemTest
+├── When item is not listed
+│   └── It should revert with {ListingNotFound}
+└── When item is listed
+    ├── When msg value is less than price
+    │   └── It should revert with {InsufficientPayment}
+    └── When msg value is sufficient
+        ├── It should remove the listing
+        ├── It should transfer the nft to the buyer
+        ├── It should add the msg value to proceeds for the seller
+        └── It should emit {ItemBought} event

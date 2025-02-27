@@ -46,7 +46,6 @@ contract ListItemTest is NftMarketplaceTest {
 
         vm.expectEmit();
         emit INftMarketPlace.ItemListed(mockNft, token1, alice, 1 ether);
-
         nftm.listItem(mockNft, token1, 1 ether);
 
         (address seller, uint256 price) = getSellerAndPrice(mockNft, token1);
