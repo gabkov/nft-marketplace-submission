@@ -2,11 +2,11 @@
 pragma solidity ^0.8.28;
 
 import "forge-std/Test.sol";
-import {NftMarketPlace, INftMarketPlace} from "src/NftMarketplace.sol";
-import {MockNft} from "test/mocks/MockNft.sol";
+import {NftMarketplace, INftMarketplace} from "../src/NftMarketplace.sol";
+import {MockNft} from "./mocks/MockNft.sol";
 
 abstract contract NftMarketplaceTest is Test {
-    INftMarketPlace public nftm;
+    INftMarketplace public nftm;
     address public mockNft;
 
     address payable owner;
@@ -24,7 +24,7 @@ abstract contract NftMarketplaceTest is Test {
         vm.deal(alice, 10 ether);
         vm.deal(bob, 10 ether);
 
-        nftm = new NftMarketPlace();
+        nftm = new NftMarketplace();
         mockNft = address(new MockNft(owner));
 
         vm.prank({msgSender: owner});
@@ -34,7 +34,7 @@ abstract contract NftMarketplaceTest is Test {
     }
 
     function getSellerAndPrice(address nft, uint256 tokenId) public view returns (address, uint256) {
-        INftMarketPlace.Listing memory listing = nftm.listings(nft, tokenId);
+        INftMarketplace.Listing memory listing = nftm.listings(nft, tokenId);
         return (listing.seller, listing.price);
     }
 }

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-import "test/NftMarketplace.t.sol";
+import "../../../NftMarketplace.t.sol";
 
 contract BuyItemTest is NftMarketplaceTest {
     function setUp() public override {
@@ -12,7 +12,7 @@ contract BuyItemTest is NftMarketplaceTest {
         // It should revert with {ListingNotFound}
 
         vm.prank({msgSender: bob});
-        vm.expectRevert(abi.encodeWithSelector(INftMarketPlace.ListingNotFound.selector, mockNft, 0));
+        vm.expectRevert(abi.encodeWithSelector(INftMarketplace.ListingNotFound.selector, mockNft, 0));
         nftm.buyItem{value: 1 ether}(mockNft, token1);
     }
 
@@ -30,7 +30,7 @@ contract BuyItemTest is NftMarketplaceTest {
         // It should revert with {InsufficientPayment}
 
         vm.prank({msgSender: bob});
-        vm.expectRevert(abi.encodeWithSelector(INftMarketPlace.InsufficientPayment.selector, 1 ether, 0.5 ether));
+        vm.expectRevert(abi.encodeWithSelector(INftMarketplace.InsufficientPayment.selector, 1 ether, 0.5 ether));
         nftm.buyItem{value: 0.5 ether}(mockNft, token1);
     }
 
@@ -51,7 +51,7 @@ contract BuyItemTest is NftMarketplaceTest {
         vm.prank({msgSender: bob});
 
         vm.expectEmit();
-        emit INftMarketPlace.ItemBought(mockNft, token1, bob, 1 ether);
+        emit INftMarketplace.ItemBought(mockNft, token1, bob, 1 ether);
         nftm.buyItem{value: 1 ether}(mockNft, token1);
 
         // nft transfered

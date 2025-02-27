@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-import "test/NftMarketplace.t.sol";
+import "../../../NftMarketplace.t.sol";
 
 contract WithdrawProceedsTest is NftMarketplaceTest {
     function setUp() public override {
@@ -13,7 +13,7 @@ contract WithdrawProceedsTest is NftMarketplaceTest {
     function test_WhenProceedsBalanceIs0() external {
         // It should revert with {NoProceeds}
 
-        vm.expectRevert(abi.encodeWithSelector(INftMarketPlace.NoProceeds.selector, alice));
+        vm.expectRevert(abi.encodeWithSelector(INftMarketplace.NoProceeds.selector, alice));
         nftm.withdrawProceeds();
     }
 
@@ -36,7 +36,7 @@ contract WithdrawProceedsTest is NftMarketplaceTest {
         // set alice's balance to the maximum possible value so overflow will trigger a revert
         vm.deal(alice, type(uint256).max);
 
-        vm.expectRevert(INftMarketPlace.WithdrawFailed.selector);
+        vm.expectRevert(INftMarketplace.WithdrawFailed.selector);
         nftm.withdrawProceeds();
     }
 
@@ -52,7 +52,7 @@ contract WithdrawProceedsTest is NftMarketplaceTest {
         assertEq(preBalance, 10 ether);
 
         vm.expectEmit();
-        emit INftMarketPlace.ProceedsWithdrawn(alice, 1 ether);
+        emit INftMarketplace.ProceedsWithdrawn(alice, 1 ether);
         nftm.withdrawProceeds();
 
         assertEq(nftm.proceeds(alice), 0 ether);

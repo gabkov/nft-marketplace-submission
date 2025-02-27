@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-import "test/NftMarketplace.t.sol";
+import "../../../NftMarketplace.t.sol";
 
 contract UpdateListingTest is NftMarketplaceTest {
     function setUp() public override {
@@ -12,7 +12,7 @@ contract UpdateListingTest is NftMarketplaceTest {
         // It should revert with {NotTokenOwner}
 
         vm.prank({msgSender: bob});
-        vm.expectRevert(INftMarketPlace.NotTokenOwner.selector);
+        vm.expectRevert(INftMarketplace.NotTokenOwner.selector);
         nftm.updateListing(mockNft, token1, 2 ether);
     }
 
@@ -24,7 +24,7 @@ contract UpdateListingTest is NftMarketplaceTest {
     function test_WhenItemIsNotListed() external whenCallerIsTheOwner {
         // It should revert with {ListingNotFound}
 
-        vm.expectRevert(abi.encodeWithSelector(INftMarketPlace.ListingNotFound.selector, mockNft, 0));
+        vm.expectRevert(abi.encodeWithSelector(INftMarketplace.ListingNotFound.selector, mockNft, 0));
         nftm.updateListing(mockNft, token1, 2 ether);
     }
 
@@ -37,7 +37,7 @@ contract UpdateListingTest is NftMarketplaceTest {
     function test_WhenNewPriceIs0() external whenCallerIsTheOwner whenItemIsListed {
         // It should revert with {ZeroPrice}
 
-        vm.expectRevert(INftMarketPlace.ZeroPrice.selector);
+        vm.expectRevert(INftMarketplace.ZeroPrice.selector);
         nftm.updateListing(mockNft, token1, 0);
     }
 
@@ -46,7 +46,7 @@ contract UpdateListingTest is NftMarketplaceTest {
         // It should emit {ListingUpdated} event
 
         vm.expectEmit();
-        emit INftMarketPlace.ListingUpdated(mockNft, token1, 1 ether, 2 ether);
+        emit INftMarketplace.ListingUpdated(mockNft, token1, 1 ether, 2 ether);
         nftm.updateListing(mockNft, token1, 2 ether);
 
         (address seller, uint256 price) = getSellerAndPrice(mockNft, token1);

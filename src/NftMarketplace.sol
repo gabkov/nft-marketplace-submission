@@ -3,12 +3,12 @@ pragma solidity ^0.8.28;
 
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {ReentrancyGuardTransient} from "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
-import {INftMarketPlace} from "./interface/INftMarketPlace.sol";
+import {INftMarketplace} from "./interface/INftMarketplace.sol";
 
-contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
+contract NftMarketplace is INftMarketplace, ReentrancyGuardTransient {
     mapping(address => mapping(uint256 => Listing)) internal _listings;
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     mapping(address => uint256) public proceeds;
 
     modifier isOwner(address tokenAddress, uint256 tokenId, address spender) {
@@ -25,12 +25,12 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         _;
     }
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     function listings(address tokenAddress, uint256 tokenId) external view returns (Listing memory) {
         return _listings[tokenAddress][tokenId];
     }
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     function listItem(address tokenAddress, uint256 tokenId, uint256 price)
         external
         isOwner(tokenAddress, tokenId, msg.sender)
@@ -48,7 +48,7 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         emit ItemListed(tokenAddress, tokenId, msg.sender, price);
     }
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     function cancelListing(address tokenAddress, uint256 tokenId)
         external
         isOwner(tokenAddress, tokenId, msg.sender)
@@ -58,7 +58,7 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         emit ListingCancelled(tokenAddress, tokenId);
     }
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     function buyItem(address tokenAddress, uint256 tokenId)
         external
         payable
@@ -78,7 +78,7 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         emit ItemBought(tokenAddress, tokenId, msg.sender, listing.price);
     }
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     function updateListing(address tokenAddress, uint256 tokenId, uint256 newPrice)
         external
         isOwner(tokenAddress, tokenId, msg.sender)
@@ -93,7 +93,7 @@ contract NftMarketPlace is INftMarketPlace, ReentrancyGuardTransient {
         emit ListingUpdated(tokenAddress, tokenId, oldPrice, newPrice);
     }
 
-    /// @inheritdoc INftMarketPlace
+    /// @inheritdoc INftMarketplace
     function withdrawProceeds() external nonReentrant {
         uint256 amount = proceeds[msg.sender];
 

@@ -23,17 +23,10 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: v1.0.0
-      
-      - name: Print working directory
-        run: pwd
-
-      - name: List repository files
-        run: ls
 
       - name: "Build the contracts and print their size"
         run: |
           forge --version
-          forge clean
           forge build --sizes
 
       - name: Run Forge tests

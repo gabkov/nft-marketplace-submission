@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.28;
 
-import "test/NftMarketplace.t.sol";
+import "../../../NftMarketplace.t.sol";
 
 contract CancelListingTest is NftMarketplaceTest {
     function setUp() public override {
@@ -12,7 +12,7 @@ contract CancelListingTest is NftMarketplaceTest {
         // It should revert with {NotTokenOwner}
 
         vm.prank({msgSender: bob});
-        vm.expectRevert(INftMarketPlace.NotTokenOwner.selector);
+        vm.expectRevert(INftMarketplace.NotTokenOwner.selector);
         nftm.cancelListing(mockNft, token1);
     }
 
@@ -24,7 +24,7 @@ contract CancelListingTest is NftMarketplaceTest {
     function test_WhenItemIsNotListed() external whenCallerIsTheOwner {
         // It should revert with {ListingNotFound}
 
-        vm.expectRevert(abi.encodeWithSelector(INftMarketPlace.ListingNotFound.selector, mockNft, 0));
+        vm.expectRevert(abi.encodeWithSelector(INftMarketplace.ListingNotFound.selector, mockNft, 0));
         nftm.cancelListing(mockNft, token1);
     }
 
@@ -41,7 +41,7 @@ contract CancelListingTest is NftMarketplaceTest {
         assertEq(price, 1 ether);
 
         vm.expectEmit();
-        emit INftMarketPlace.ListingCancelled(mockNft, token1);
+        emit INftMarketplace.ListingCancelled(mockNft, token1);
         nftm.cancelListing(mockNft, token1);
 
         (seller, price) = getSellerAndPrice(mockNft, token1);
