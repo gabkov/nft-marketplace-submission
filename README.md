@@ -1,66 +1,58 @@
-## Foundry
+## NFT marketplace submission
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This project uses [foundry](https://github.com/foundry-rs/foundry) and [bulloak](https://github.com/alexfertel/bulloak). The script is configured to use the [first default address](.env) from anvil. 
 
-Foundry consists of:
+## Instructions
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
+If you don't have foundry run:
+```shell
+curl -L https://foundry.paradigm.xyz | bash
+```
+then run:
+```shell
+foundryup
+```
 
 ## Usage
 
 ### Build
 
 ```shell
-$ forge build
+forge build
 ```
 
 ### Test
 
 ```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
+forge test
 ```
 
 ### Anvil
 
-```shell
-$ anvil
-```
-
-### Deploy
+Before running the script start anvil in a separate terminal, which will spin up a local network.
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+anvil
 ```
 
-### Cast
+### Deploy marketplace and list NFT
+The script is using `create2` so the deploy addresses are deterministic and makes the integration into the provided webshop easier.
 
+Note: if you would like to re-run the script you have to restart `anvil`.
 ```shell
-$ cast <subcommand>
+forge script script/DeployAndListNft.s.sol:DeployAndListNft --broadcast --rpc-url 127.0.0.1:8545 -vvvvv
 ```
 
-### Help
-
+### Gas snapshot check
+Snapshots can be found in [snapshots](/snapshots/) folder
 ```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+FORGE_SNAPSHOT_CHECK=true FOUNDRY_NO_MATCH_TEST=DISABLE forge test --isolate --mt testGas -vvv
 ```
+
+### Additional info
+
+CI provided for:
+- bulloak
+- gas check
+- linting
+- tests
