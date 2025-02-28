@@ -2,7 +2,6 @@
 pragma solidity ^0.8.28;
 
 import {Create2} from "@openzeppelin/contracts/utils/Create2.sol";
-
 import {Script, console} from "forge-std/Script.sol";
 import {NftMarketplace, INftMarketplace} from "../src/NftMarketplace.sol";
 import {MockNft} from "../test/mocks/MockNft.sol";
