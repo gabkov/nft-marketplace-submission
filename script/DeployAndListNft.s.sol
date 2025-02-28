@@ -9,7 +9,7 @@ import {MockNft} from "../test/mocks/MockNft.sol";
 contract DeployAndListNft is Script {
     NftMarketplace public nftm;
     MockNft public mockNft;
-    
+
     // enabled by default on anvil
     address defaultCreate2Deployer = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
 
@@ -20,7 +20,7 @@ contract DeployAndListNft is Script {
         address deployer = vm.rememberKey(privateKey);
 
         bytes32 salt = keccak256("gabkov");
-        
+
         vm.startBroadcast(privateKey);
 
         // deploy marketplace
@@ -33,11 +33,11 @@ contract DeployAndListNft is Script {
 
         // list nft on markeplace
         mintAndListNft(deployer);
-        
+
         vm.stopBroadcast();
     }
 
-    function deployMarketPlace(bytes32 salt) internal returns(address){
+    function deployMarketPlace(bytes32 salt) internal returns (address) {
         bytes memory creationCode = type(NftMarketplace).creationCode;
 
         address computedAddress = Create2.computeAddress(salt, keccak256(creationCode), defaultCreate2Deployer);
@@ -50,13 +50,13 @@ contract DeployAndListNft is Script {
         return deployedAddress;
     }
 
-    function deployMockNFT(bytes32 salt, address deployer) internal returns(address){
-        bytes memory constructorArgs = abi.encode(deployer); 
+    function deployMockNFT(bytes32 salt, address deployer) internal returns (address) {
+        bytes memory constructorArgs = abi.encode(deployer);
         bytes memory creationCode = abi.encodePacked(type(MockNft).creationCode, constructorArgs);
 
         address computedAddress = Create2.computeAddress(salt, keccak256(creationCode), defaultCreate2Deployer);
         address deployedAddress = Create2.deploy(0, salt, creationCode);
-        
+
         assert(computedAddress == deployedAddress);
         console.log("Computed MockNft Address:", computedAddress);
         console.log("Deployed MockNft Address:", deployedAddress);
@@ -68,7 +68,7 @@ contract DeployAndListNft is Script {
         // mint nft & approve
         uint256 tokenId = mockNft.safeMint(deployer);
         mockNft.approve(address(nftm), tokenId);
-        
+
         // list nft
         nftm.listItem(address(mockNft), tokenId, 1 ether);
 
