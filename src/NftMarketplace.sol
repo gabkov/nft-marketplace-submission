@@ -25,6 +25,11 @@ contract NftMarketplace is INftMarketplace, ReentrancyGuardTransient {
         _;
     }
 
+    modifier isZeroPrice(uint256 price) {
+        if (price == 0) revert ZeroPrice();
+        _;
+    }
+
     /// @inheritdoc INftMarketplace
     function listings(address tokenAddress, uint256 tokenId) external view returns (Listing memory) {
         return _listings[tokenAddress][tokenId];
@@ -34,6 +39,7 @@ contract NftMarketplace is INftMarketplace, ReentrancyGuardTransient {
     function listItem(address tokenAddress, uint256 tokenId, uint256 price)
         external
         isOwner(tokenAddress, tokenId, msg.sender)
+        isZeroPrice(price)
     {
         if (IERC721(tokenAddress).getApproved(tokenId) != address(this)) {
             revert TokenNotApprovedForListing();
@@ -83,11 +89,9 @@ contract NftMarketplace is INftMarketplace, ReentrancyGuardTransient {
         external
         isOwner(tokenAddress, tokenId, msg.sender)
         isListed(tokenAddress, tokenId)
+        isZeroPrice(newPrice)
     {
-        if (newPrice <= 0) revert ZeroPrice();
-
         uint256 oldPrice = _listings[tokenAddress][tokenId].price;
-
         _listings[tokenAddress][tokenId].price = newPrice;
 
         emit ListingUpdated(tokenAddress, tokenId, oldPrice, newPrice);

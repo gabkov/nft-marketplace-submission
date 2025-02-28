@@ -2,11 +2,14 @@ ListItemTest
 ├── When caller is not owner
 │   └── It should revert with {NotTokenOwner}
 └── When caller is the owner
-    ├── When nft is not approved for listing
-    │   └── It should revert with {TokenNotApprovedForListing}
-    └── When nft is approved for listing
-        ├── When listing already exists
-        │   └── It should revert with {ListingAlreadyExists}
-        └── When listing does not exist
-            ├── It should create the listing
-            └── It should emit {ItemListed} event
+    ├── When the price is 0
+    │   └── It should revert with {ZeroPrice}
+    └── When the price is more than 0
+        ├── When nft is not approved for listing
+        │   └── It should revert with {TokenNotApprovedForListing}
+        └── When nft is approved for listing
+            ├── When listing already exists
+            │   └── It should revert with {ListingAlreadyExists}
+            └── When listing does not exist
+                ├── It should create the listing
+                └── It should emit {ItemListed} event
